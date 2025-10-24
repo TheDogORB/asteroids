@@ -1,21 +1,66 @@
 import pygame
+import sys
 from constants import *
+from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
+    # Init pygam
     passed_modules, failed_modules = pygame.init()
-    # Print default vars
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-    # Init screen
+    
+    # Init screen and timers for FPS lock
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    fps_clock = pygame.time.Clock()
+    dt = 0
+
+    # Init grps
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
+
+    Asteroid.containers = (asteroids, updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
+    AsteroidField.containers = (updatable)
+    asteroid_field = AsteroidField()
+
+    Player.containers = (updatable, drawable)
+
+    # Init objects
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
     # Game loop
     while True:
+        # Quit event to close the game upon clicking on close
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        pygame.Surface.fill(screen, (0,0,0))
+
+        # Go through all objects in groups
+        updatable.update(dt)
+        for asteroid in asteroids:
+            if player.check_for_collision(asteroid):
+                print("Game over!")
+                sys.exit()
+
+            for shot in shots:
+                if asteroid.check_for_collision(shot):
+                    shot.kill()
+                    asteroid.split()
+
+        # Render BG as black (0,0,0)
+        pygame.Surface.fill(screen, "black")
+
+        for obj in drawable:
+            obj.draw(screen)
+
+        # Update content of the screen
         pygame.display.flip()
+
+        # Limit FPS to 60, save delta time 
+        dt = fps_clock.tick(60) / 1000
 
 if __name__ == "__main__":
     main()
