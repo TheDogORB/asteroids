@@ -1,7 +1,7 @@
 # asteroids
 
 # What to add:
-- Add a scoring system
+- ~~Add a scoring system~~
 - Implement multiple lives and respawning
 - Add an explosion effect for the asteroids
 - Add acceleration to the player movement

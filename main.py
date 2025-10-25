@@ -5,10 +5,15 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+from score import Score
 
 def main():
     # Init pygam
-    passed_modules, failed_modules = pygame.init()
+    pygame.init()
+    pygame.font.init()
+
+    # Init font for Score
+    font = pygame.font.Font(None, 30)
     
     # Init screen and timers for FPS lock
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -30,6 +35,7 @@ def main():
 
     # Init objects
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    score = Score()
 
     # Game loop
     while True:
@@ -43,15 +49,21 @@ def main():
         for asteroid in asteroids:
             if player.check_for_collision(asteroid):
                 print("Game over!")
+                print(f"Final score: {score.score}")
                 sys.exit()
 
             for shot in shots:
                 if asteroid.check_for_collision(shot):
                     shot.kill()
                     asteroid.split()
+                    score.add_score(asteroid)
 
         # Render BG as black (0,0,0)
         pygame.Surface.fill(screen, "black")
+
+        # Draw score
+        score_text = font.render(f"Score: {score.score}", True, "white")
+        screen.blit(score_text, (10, 10))
 
         for obj in drawable:
             obj.draw(screen)
