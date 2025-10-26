@@ -1,6 +1,7 @@
-# asteroids
+# Asteroid
+Simple Pygame project to figure out workflow and other stuff
 
-# What to add:
+## What to add
 - ~~Add a scoring system~~
 - ~~Implement multiple lives and respawning~~
 - Add an explosion effect for the asteroids
