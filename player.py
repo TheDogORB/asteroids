@@ -11,7 +11,7 @@ class Player(CircleShape):
 
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS) 
-        self.health = Health(-1)
+        self.health = Health(5)
         self.score = 0
         self.rotation = 0
         self.shoot_cd = 0
