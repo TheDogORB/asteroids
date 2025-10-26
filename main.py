@@ -4,9 +4,10 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from scoreboard import ScoreBoard
 from shot import Shot
-from score import Score
 from healthbar import HealthBar
+from uielement import UiElement
 
 def main():
     # Init pygam
@@ -36,7 +37,7 @@ def main():
 
     # Init objects
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    score = Score()
+    score_board = ScoreBoard(font)
     health_bar = HealthBar(player.health.max_health)
 
     # Game loop
@@ -46,13 +47,13 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        # Go through all objects in groups
+        # Go through all objects in groups and update game's logic
         updatable.update(dt)
         for asteroid in asteroids:
             if player.check_for_collision(asteroid):
                 if not player.health.is_alive():
                     print("Game over!")
-                    print(f"Final score: {score.score}")
+                    print(f"Final score: {player.score}")
                     sys.exit()
                 player.take_damage(dt)
 
@@ -60,18 +61,16 @@ def main():
                 if asteroid.check_for_collision(shot):
                     shot.kill()
                     asteroid.split()
-                    score.add_score(asteroid)
+                    player.add_score(asteroid)
 
         # Render BG as black (0,0,0)
         pygame.Surface.fill(screen, "black")
 
-        # Draw score
-        score_text = font.render(f"Score: {score.score}", True, "white")
-        screen.blit(score_text, (10, 10))
-
-        # Draw health
+        # Draw UI elements
+        score_board.draw(screen, player)
         health_bar.draw(screen, player)
 
+        # Draw objects in pygame.sprit.Group()
         for obj in drawable:
             obj.draw(screen)
 

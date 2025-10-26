@@ -1,7 +1,7 @@
 import pygame
 from circleshape import CircleShape
-from shot import Shot
 from health import Health
+from shot import Shot
 from constants import *
 
 DAMAGE_CD = 1 # in seconds
@@ -11,6 +11,7 @@ class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS) 
         self.health = Health(5)
+        self.score = 0
         self.rotation = 0
         self.shoot_cd = 0
         self.damage_cd = 0
@@ -68,3 +69,6 @@ class Player(CircleShape):
         self.damage_cd = DAMAGE_CD
         self.health.current_health -= 1
         self.reset_position()
+
+    def add_score(self, asteroid):
+        self.score += ( ASTEROID_MAX_RADIUS + ASTEROID_MIN_RADIUS - asteroid.radius)
