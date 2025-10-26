@@ -1,14 +1,19 @@
 import pygame
 from circleshape import CircleShape
 from shot import Shot
+from health import Health
 from constants import *
+
+DAMAGE_CD = 1 # in seconds
 
 class Player(CircleShape):
 
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS) 
+        self.health = Health(5)
         self.rotation = 0
         self.shoot_cd = 0
+        self.damage_cd = 0
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -24,8 +29,12 @@ class Player(CircleShape):
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
 
+    def reset_position(self):
+        self.position = pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
     def update(self, dt):
         self.shoot_cd -= dt
+        self.damage_cd -= dt
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
@@ -52,5 +61,10 @@ class Player(CircleShape):
         new_shot = Shot(x, y) 
         new_shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOT_SPEED
 
-    def reset_position(self):
-        self.position = pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    def take_damage(self, dt):
+        self.damage_cd -= dt
+        if self.damage_cd > 0:
+            return 
+        self.damage_cd = DAMAGE_CD
+        self.health.current_health -= 1
+        self.reset_position()
