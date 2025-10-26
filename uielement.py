@@ -8,5 +8,5 @@ class UiElement:
     def toggle(self):
         self.visibility = not self.visibility
 
-    def draw(self):
+    def draw(self, screen, player):
         pass

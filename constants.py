@@ -17,3 +17,6 @@ PLAYER_SHOOT_CD = 0.3
 SHOT_RADIUS = 5
 
 UI_OFFSET = 10
+
+GAME_RUNNING = "running"
+GAME_OVER = "game over"

@@ -1,4 +1,5 @@
 import pygame
+import global_vars
 from circleshape import CircleShape
 from health import Health
 from shot import Shot
@@ -10,7 +11,7 @@ class Player(CircleShape):
 
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS) 
-        self.health = Health(5)
+        self.health = Health(-1)
         self.score = 0
         self.rotation = 0
         self.shoot_cd = 0
@@ -34,6 +35,8 @@ class Player(CircleShape):
         self.position = pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
     def update(self, dt):
+        if global_vars.game_state != GAME_RUNNING:
+            return
         self.shoot_cd -= dt
         self.damage_cd -= dt
         keys = pygame.key.get_pressed()
