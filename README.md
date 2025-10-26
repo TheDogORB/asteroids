@@ -4,6 +4,7 @@ Simple Pygame project to figure out workflow and other stuff
 ## What to add
 - ~~Add a scoring system~~
 - ~~Implement multiple lives and respawning~~
+- ~~Add Game over! screen with score~~
 - Add an explosion effect for the asteroids
 - Add acceleration to the player movement
 - Make the objects wrap around the screen instead of disappearing
