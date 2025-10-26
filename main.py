@@ -1,5 +1,6 @@
 import pygame
 import sys
+from explosion import Explosion
 import global_vars
 
 from constants import *
@@ -30,15 +31,16 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
+    explosions = pygame.sprite.Group()
 
     Asteroid.containers = (asteroids, updatable, drawable)
     Shot.containers = (shots, updatable, drawable)
     AsteroidField.containers = (updatable)
-    asteroid_field = AsteroidField()
-
+    Explosion.containers = (updatable, drawable)
     Player.containers = (updatable, drawable)
 
     # Init objects
+    asteroid_field = AsteroidField()
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     score_board = ScoreBoard()
     health_bar = HealthBar(player.health.max_health)

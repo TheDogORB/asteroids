@@ -2,7 +2,7 @@ import pygame
 import random
 from circleshape import CircleShape
 from constants import ASTEROID_MIN_ANGLE, ASTEROID_MAX_ANGLE, ASTEROID_MIN_RADIUS
-
+from explosion import Explosion
 
 class Asteroid(CircleShape):
 
@@ -24,6 +24,9 @@ class Asteroid(CircleShape):
         random_angle = self.velocity.rotate(angle)
         new_radius = self.radius - ASTEROID_MIN_RADIUS
         x, y = self.position
+
+        explosion = Explosion(x, y, self.radius)
+        explosion.velocity = 0
 
         asteroid1 = Asteroid(x, y, new_radius)
         asteroid1.velocity = random_angle * 1.2
