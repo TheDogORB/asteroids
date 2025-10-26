@@ -6,6 +6,7 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
 from score import Score
+from health import Health
 
 def main():
     # Init pygam
@@ -36,6 +37,7 @@ def main():
     # Init objects
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     score = Score()
+    health = Health(5)
 
     # Game loop
     while True:
@@ -48,9 +50,12 @@ def main():
         updatable.update(dt)
         for asteroid in asteroids:
             if player.check_for_collision(asteroid):
-                print("Game over!")
-                print(f"Final score: {score.score}")
-                sys.exit()
+                if not health.is_alive():
+                    print("Game over!")
+                    print(f"Final score: {score.score}")
+                    sys.exit()
+                if health.take_damage(dt):
+                    player.reset_position()
 
             for shot in shots:
                 if asteroid.check_for_collision(shot):
@@ -64,6 +69,9 @@ def main():
         # Draw score
         score_text = font.render(f"Score: {score.score}", True, "white")
         screen.blit(score_text, (10, 10))
+
+        # Draw health
+        health.draw(screen, dt)
 
         for obj in drawable:
             obj.draw(screen)

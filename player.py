@@ -51,3 +51,6 @@ class Player(CircleShape):
         x, y = self.position
         new_shot = Shot(x, y) 
         new_shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOT_SPEED
+
+    def reset_position(self):
+        self.position = pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
