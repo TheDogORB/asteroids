@@ -11,6 +11,7 @@ class CircleShape(pygame.sprite.Sprite):
         self.position = pygame.Vector2(x, y)
         self.velocity = pygame.Vector2(0, 0)
         self.radius = radius
+        self.times_crossed = 0 
 
     def draw(self, screen):
         pass
@@ -18,16 +19,22 @@ class CircleShape(pygame.sprite.Sprite):
     def update(self, dt):
         # Logic for X coords
         x, y = self.position
+        changed = False
         if x > SCREEN_WIDTH + self.radius:
             x = 0 - self.radius
+            changed = True
         elif x < 0 - self.radius:
             x = SCREEN_WIDTH + self.radius
+            changed = True
         # Logic for Y coords
         if y > SCREEN_HEIGHT + self.radius:
             y = 0 - self.radius
+            changed = True
         elif y < 0 - self.radius:
             y = SCREEN_HEIGHT + self.radius
-
+            changed = True
+        if changed == True:
+            self.times_crossed += 1
         self.position = pygame.Vector2(x, y)
 
     def check_for_collision(self, other):

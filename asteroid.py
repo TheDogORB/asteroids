@@ -1,7 +1,7 @@
 import pygame
 import random
 from circleshape import CircleShape
-from constants import ASTEROID_MIN_ANGLE, ASTEROID_MAX_ANGLE, ASTEROID_MIN_RADIUS
+from constants import ASTEROID_CROSS_TO_LIVE, ASTEROID_MIN_ANGLE, ASTEROID_MAX_ANGLE, ASTEROID_MIN_RADIUS
 from explosion import Explosion
 
 class Asteroid(CircleShape):
@@ -21,6 +21,8 @@ class Asteroid(CircleShape):
     def update(self, dt):
         self.position += self.velocity * dt 
         super().update(dt)
+        if self.times_crossed >= ASTEROID_CROSS_TO_LIVE:
+           self.kill()
 
     def split(self):
         self.kill()
@@ -37,6 +39,8 @@ class Asteroid(CircleShape):
 
         asteroid1 = Asteroid(x, y, new_radius)
         asteroid1.velocity = random_angle * 1.2
+        asteroid1.times_crossed = self.times_crossed
 
         asteroid2 = Asteroid(x, y, new_radius)
         asteroid2.velocity = -random_angle * 1.2
+        asteroid2.times_crossed = self.times_crossed
