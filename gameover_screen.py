@@ -1,7 +1,7 @@
 import pygame
 import global_vars
 from constants import GAME_RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, UI_OFFSET
-from uielement import UiElement
+from ui_element import UiElement
 
 class GameOverScreen(UiElement):
 

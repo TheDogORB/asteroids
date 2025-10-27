@@ -2,7 +2,7 @@ import pygame
 from constants import GAME_RUNNING, UI_OFFSET
 import global_vars
 from player import Player
-from uielement import UiElement
+from ui_element import UiElement
 
 class ScoreBoard(UiElement):
 

@@ -1,6 +1,6 @@
 import pygame
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
-from uielement import UiElement
+from ui_element import UiElement
 
 
 class Background(UiElement):

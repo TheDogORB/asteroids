@@ -1,6 +1,6 @@
 import pygame
 from player import Player, Health
-from uielement import UiElement
+from ui_element import UiElement
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH, UI_OFFSET
 
 class HealthBar(UiElement):

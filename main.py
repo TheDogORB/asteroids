@@ -6,13 +6,13 @@ import global_vars
 
 from constants import *
 
-from gameoverscreen import GameOverScreen
+from gameover_screen import GameOverScreen
 from player import Player
 from asteroid import Asteroid
-from asteroidfield import AsteroidField
+from asteroid_field import AsteroidField
 from scoreboard import ScoreBoard
 from shot import Shot
-from healthbar import HealthBar
+from health_bar import HealthBar
 
 def main():
     # Init pygam
