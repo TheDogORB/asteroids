@@ -7,7 +7,7 @@ Simple Pygame project to figure out workflow and other stuff
 - ~~Add Game over! screen with score~~
 - ~~Add an explosion effect for the asteroids~~
 - ~~Add a background image~~
-- Add acceleration to the player movement
+- ~~Add acceleration to the player movement~~
 - Make the objects wrap around the screen instead of disappearing
 - Create different weapon types
 - Make the ship have a triangular hit box instead of a circular one
