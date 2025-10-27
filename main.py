@@ -1,5 +1,6 @@
 import pygame
 import sys
+from background import Background
 from explosion import Explosion
 import global_vars
 
@@ -45,6 +46,7 @@ def main():
     score_board = ScoreBoard()
     health_bar = HealthBar(player.health.max_health)
     game_over_screen = GameOverScreen()
+    background = Background()
 
     global global_vars
 
@@ -73,8 +75,9 @@ def main():
             health_bar.visibility = False
             game_over_screen.visibility = True
 
-        # Render BG as black (0,0,0)
+        # Render BG as black (0,0,0) then place an image
         pygame.Surface.fill(screen, "black")
+        background.draw(screen, player)
 
         # Draw objects in pygame.sprit.Group()
         for obj in drawable:

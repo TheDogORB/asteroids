@@ -11,6 +11,7 @@ class Player(CircleShape):
 
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS) 
+        self.__image = pygame.transform.scale(pygame.image.load("./img/player.png"), (PLAYER_RADIUS * 2, PLAYER_RADIUS * 2))
         self.health = Health(5)
         self.score = 0
         self.rotation = 0
@@ -26,7 +27,10 @@ class Player(CircleShape):
         return [a, b, c]
 
     def draw(self, screen):
-        pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), 2)
+        rotated_image = pygame.transform.rotate(self.__image, -self.rotation)
+        rotated_rect = rotated_image.get_rect(center=self.position)
+        screen.blit(rotated_image, rotated_rect.topleft)
+        # pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), 2)
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
