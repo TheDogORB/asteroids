@@ -37,6 +37,7 @@ class Player(CircleShape):
     def update(self, dt):
         if global_vars.game_state != GAME_RUNNING:
             return
+        super().update(dt)
         self.shoot_cd -= dt
         self.damage_cd -= dt
         keys = pygame.key.get_pressed()
